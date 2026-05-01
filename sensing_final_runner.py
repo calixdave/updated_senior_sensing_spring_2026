@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 # =========================================================
-# PI-FRIENDLY FULL SENSING RUNNER
+# TEAM 4 SD26 FULL SENSING RUNNER
 # =========================================================
 # Pipeline:
 #   1. Capture 4 still images: front, right, back, left
@@ -13,11 +13,6 @@ import numpy as np
 #   4. Match color 3x3 into BIG_GRID
 #   5. Rotate object grid into BIG_GRID perspective
 #   6. Save and print compact_map_result.txt only
-#
-# No cv2.imshow()
-# No debug_objects/
-# No debug_tiles/
-# No JSON outputs
 # =========================================================
 
 # =========================================================
@@ -173,14 +168,13 @@ def pretty_matrix(mat):
 
 
 # =========================================================
-# STEP 1: SCAN CAPTURE, NO DISPLAY
+# STEP 1: SCAN CAPTURE
 # =========================================================
 
 def capture_scan_images():
     """
     Captures 4 still images with no camera preview.
-
-    The user rotates the robot/camera manually between captures.
+    Robot/Camera manually rotated between captures durint test.
     Press Enter in the terminal for each heading.
     """
     cap = cv2.VideoCapture(CAMERA_INDEX)
@@ -272,7 +266,6 @@ def classify_floor_color_opencv(tile_bgr):
         Y = yellow
         B = blue
         M = pink/magenta
-
     Red and green are reserved for objects.
     """
     if tile_bgr is None or tile_bgr.size == 0:
@@ -792,9 +785,9 @@ def build_compact_17char(matched_biggrid_window, object_biggrid_perspective, fin
         floor color + object state
 
     Example:
-        YE = Yellow floor, Empty object
-        PO = Purple floor, Obstacle
-        BT = Blue floor, Target
+        YE = Yellow tile, Empty object
+        PO = Purple tile, Obstacle
+        BT = Blue tile, Target
     """
     out = []
 
@@ -868,7 +861,7 @@ def main():
     )
 
     with open(COMPACT_RESULT_FILE, "w") as f:
-        f.write(compact_result + "\n")
+        f.write(compact_result + "\n" + "\n")
 
     # Print only the compact result.
     print(compact_result)
